@@ -34,6 +34,7 @@ import { KidInquireEntity } from '@/modules/inquire/kids/entities/kid.entity';
 			],
 			autoLoadModels: true,
 			synchronize: process.env.MODE === 'development',
+			sync: { force: process.env.MODE === 'development' },
 			logging: process.env.MODE === 'development' ? console.log : false
 		}),
 		BookModule,
