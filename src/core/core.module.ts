@@ -11,6 +11,10 @@ import { PrivateModule } from '@/modules/inquire/private/private.module';
 import { PrivateInquireEntity } from '@/modules/inquire/private/entities/private.entity';
 import { KidsModule } from '@/modules/inquire/kids/kids.module';
 import { KidInquireEntity } from '@/modules/inquire/kids/entities/kid.entity';
+import { ShowForKidsModule } from '@/modules/show-for-kids/show-for-kids.module';
+import { ShowForKidsEntity } from '@/modules/show-for-kids/entities/show-for-kid.entity';
+import { MasterclassEntity } from '@/modules/masterclass/entities/masterclass.entity';
+import { MasterclassModule } from '@/modules/masterclass/masterclass.module';
 
 @Module({
 	imports: [
@@ -30,7 +34,9 @@ import { KidInquireEntity } from '@/modules/inquire/kids/entities/kid.entity';
 				MediaEntity,
 				BookEntity,
 				PrivateInquireEntity,
-				KidInquireEntity
+				KidInquireEntity,
+				ShowForKidsEntity,
+				MasterclassEntity
 			],
 			autoLoadModels: true,
 			synchronize: process.env.MODE === 'development',
@@ -41,7 +47,9 @@ import { KidInquireEntity } from '@/modules/inquire/kids/entities/kid.entity';
 		EventModule,
 		MediaModule,
 		PrivateModule,
-		KidsModule
+		KidsModule,
+		ShowForKidsModule,
+		MasterclassModule
 	]
 })
 export class CoreModule {}

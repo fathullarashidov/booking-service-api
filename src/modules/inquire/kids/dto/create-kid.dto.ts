@@ -39,14 +39,6 @@ export class CreateKidsInquireDto {
 	@IsInt()
 	people_quantity: number;
 
-	@ApiProperty({ example: 'Painting', description: 'Masterclass type' })
-	@IsString()
-	declare masterclass_type: string;
-
-	@ApiProperty({ example: 'Balloons party', description: 'Show type' })
-	@IsString()
-	declare show_type: string;
-
 	@ApiProperty({
 		enum: STATUSES,
 		default: 'pending',
@@ -54,4 +46,18 @@ export class CreateKidsInquireDto {
 	})
 	@IsIn(STATUSES)
 	status: string;
+
+	@ApiProperty({
+		example: 'a58db8b9-04ab-4d78-9e78-18cae3a3a1e5',
+		description: 'ID of available masterclass'
+	})
+	@IsString()
+	masterclassId: string;
+
+	@ApiProperty({
+		example: 'a58db8b9-04ab-4d78-9e78-18cae3a3a1e5',
+		description: 'ID of available show for kids'
+	})
+	@IsString()
+	showForKids: string;
 }

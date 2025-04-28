@@ -1,4 +1,13 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+	BelongsTo,
+	Column,
+	DataType,
+	ForeignKey,
+	Model,
+	Table
+} from 'sequelize-typescript';
+import { MasterclassEntity } from '@/modules/masterclass/entities/masterclass.entity';
+import { ShowForKidsEntity } from '@/modules/show-for-kids/entities/show-for-kid.entity';
 
 @Table({ tableName: 'kid-inquire' })
 export class KidInquireEntity extends Model {
@@ -29,12 +38,6 @@ export class KidInquireEntity extends Model {
 	@Column({ allowNull: false, type: DataType.INTEGER })
 	declare people_quantity: number;
 
-	@Column({ allowNull: false, type: DataType.STRING })
-	declare masterclass_type: string;
-
-	@Column({ allowNull: false, type: DataType.TEXT })
-	declare show_type: string;
-
 	@Column({ allowNull: false, type: DataType.TEXT })
 	declare status:
 		| 'in process'
@@ -44,4 +47,24 @@ export class KidInquireEntity extends Model {
 		| 'pending'
 		| 'completed'
 		| 'archived';
+
+	@ForeignKey(() => MasterclassEntity)
+	@Column({
+		type: DataType.UUID,
+		allowNull: false
+	})
+	declare masterclassId: string;
+
+	@BelongsTo(() => MasterclassEntity)
+	declare masterclass: MasterclassEntity;
+
+	@ForeignKey(() => ShowForKidsEntity)
+	@Column({
+		type: DataType.UUID,
+		allowNull: false
+	})
+	declare showForKidsId: string;
+
+	@BelongsTo(() => ShowForKidsEntity)
+	declare showForKids: ShowForKidsEntity;
 }

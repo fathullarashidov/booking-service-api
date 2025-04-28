@@ -20,7 +20,7 @@ import { CreateKidsInquireDto } from '@/modules/inquire/kids/dto/create-kid.dto'
 import { UpdateKidsInquireDto } from '@/modules/inquire/kids/dto/update-kid.dto';
 
 @ApiTags('Kids Inquiries')
-@Controller('private-inquiries')
+@Controller('kids-inquiries')
 export class KidsInquireController {
 	constructor(private readonly inquireService: KidsInquireService) {}
 
