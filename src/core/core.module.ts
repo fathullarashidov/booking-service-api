@@ -15,6 +15,8 @@ import { ShowForKidsModule } from '@/modules/show-for-kids/show-for-kids.module'
 import { ShowForKidsEntity } from '@/modules/show-for-kids/entities/show-for-kid.entity';
 import { MasterclassEntity } from '@/modules/masterclass/entities/masterclass.entity';
 import { MasterclassModule } from '@/modules/masterclass/masterclass.module';
+import { FeedbackModule } from '@/modules/feedback/feedback.module';
+import { FeedbackEntity } from '@/modules/feedback/entities/feedback.entity';
 
 @Module({
 	imports: [
@@ -36,7 +38,8 @@ import { MasterclassModule } from '@/modules/masterclass/masterclass.module';
 				PrivateInquireEntity,
 				KidInquireEntity,
 				ShowForKidsEntity,
-				MasterclassEntity
+				MasterclassEntity,
+				FeedbackEntity
 			],
 			autoLoadModels: true,
 			synchronize: process.env.MODE === 'development',
@@ -49,7 +52,8 @@ import { MasterclassModule } from '@/modules/masterclass/masterclass.module';
 		PrivateModule,
 		KidsModule,
 		ShowForKidsModule,
-		MasterclassModule
+		MasterclassModule,
+		FeedbackModule
 	]
 })
 export class CoreModule {}
