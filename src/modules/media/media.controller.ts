@@ -85,12 +85,8 @@ export class MediaController {
 		type: [MediaEntity],
 		description: 'Список медиа-файлов'
 	})
-	async findAll(
-		@Query('page') page = 1,
-		@Query('limit') limit = 10,
-		@Query('type') mimeType?: string
-	) {
-		return this.mediaService.findAll(page, limit, mimeType);
+	async findAll(@Query('page') page = 1, @Query('limit') limit = 10) {
+		return this.mediaService.findAll(page, limit);
 	}
 
 	@Get(':id')
