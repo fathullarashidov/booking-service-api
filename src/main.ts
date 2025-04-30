@@ -7,6 +7,8 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(CoreModule);
 
+	app.setGlobalPrefix('api/v1');
+
 	const config = new DocumentBuilder()
 		.setTitle('Restaurant API')
 		.setDescription('API for restaurant management system')
@@ -15,7 +17,7 @@ async function bootstrap() {
 		.build();
 
 	const document = SwaggerModule.createDocument(app, config);
-	SwaggerModule.setup('docs', app, document);
+	SwaggerModule.setup('api/v1/docs', app, document);
 
 	app.useStaticAssets(join(process.cwd(), 'media'), {
 		prefix: '/media'

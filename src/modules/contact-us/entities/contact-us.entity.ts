@@ -1,7 +1,7 @@
-import { Column, DataType, Table } from 'sequelize-typescript';
+import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
 @Table({ tableName: 'contact_us' })
-export class ContactUsEntity {
+export class ContactUsEntity extends Model {
 	@Column({
 		type: DataType.UUID,
 		primaryKey: true,
