@@ -1,9 +1,12 @@
 import {
 	Body,
 	Controller,
+	Delete,
 	Get,
 	Param,
+	Patch,
 	Post,
+	Query,
 	UploadedFile,
 	UseInterceptors
 } from '@nestjs/common';
@@ -20,6 +23,7 @@ import {
 import { MediaService } from '@/modules/media/media.service';
 import { CreateMediaDto } from '@/modules/media/dto/create-media.dto';
 import { MediaEntity } from '@/modules/media/entities/media.entity';
+import { UpdateMediaDto } from '@/modules/media/dto/update-media.dto';
 
 @ApiTags('Media')
 @Controller('media')
@@ -81,8 +85,12 @@ export class MediaController {
 		type: [MediaEntity],
 		description: 'Список медиа-файлов'
 	})
-	findAll(): Promise<MediaEntity[]> {
-		return this.mediaService.findAll();
+	async findAll(
+		@Query('page') page = 1,
+		@Query('limit') limit = 10,
+		@Query('type') mimeType?: string
+	) {
+		return this.mediaService.findAll(page, limit, mimeType);
 	}
 
 	@Get(':id')
@@ -108,7 +116,92 @@ export class MediaController {
 		status: 400,
 		description: 'Некорректный формат UUID'
 	})
-	findById(@Param('id') id: string): Promise<MediaEntity> {
+	async findById(@Param('id') id: string): Promise<MediaEntity> {
 		return this.mediaService.findById(id);
+	}
+
+	@Patch(':id')
+	@ApiOperation({
+		summary: 'Обновить метаданные медиа-файла',
+		description: 'Обновляет информацию о файле (название, категорию и т.д.)'
+	})
+	@ApiParam({
+		name: 'id',
+		type: String,
+		description: 'UUID идентификатор файла'
+	})
+	@ApiResponse({
+		status: 200,
+		type: MediaEntity,
+		description: 'Обновленные данные файла'
+	})
+	async update(
+		@Param('id') id: string,
+		@Body() dto: UpdateMediaDto
+	): Promise<MediaEntity> {
+		return this.mediaService.update(id, dto);
+	}
+
+	@Patch(':id/file')
+	@ApiOperation({
+		summary: 'Заменить файл',
+		description: 'Обновляет файл, сохраняя существующие метаданные'
+	})
+	@ApiConsumes('multipart/form-data')
+	@ApiBody({
+		description: 'Новый файл для загрузки',
+		schema: {
+			type: 'object',
+			properties: {
+				file: {
+					type: 'string',
+					format: 'binary',
+					description: 'Новый файл для замены'
+				}
+			}
+		}
+	})
+	@UseInterceptors(FileInterceptor('file'))
+	async updateFile(
+		@Param('id') id: string,
+		@UploadedFile() file: Express.Multer.File
+	): Promise<MediaEntity> {
+		return this.mediaService.updateFile(id, file);
+	}
+
+	@Delete(':id')
+	@ApiOperation({
+		summary: 'Удалить медиа-файл',
+		description: 'Полностью удаляет файл и связанные с ним метаданные'
+	})
+	@ApiResponse({
+		status: 204,
+		description: 'Файл успешно удален'
+	})
+	@ApiResponse({
+		status: 404,
+		description: 'Файл не найден'
+	})
+	async delete(@Param('id') id: string): Promise<void> {
+		return this.mediaService.delete(id);
+	}
+
+	@Get('stats/usage')
+	@ApiOperation({
+		summary: 'Статистика использования медиа',
+		description: 'Возвращает аналитику по типам и объему файлов'
+	})
+	@ApiResponse({
+		status: 200,
+		schema: {
+			example: {
+				total: 15,
+				byType: { image: 10, video: 5 },
+				totalSize: 10485760
+			}
+		}
+	})
+	async getStats() {
+		return this.mediaService.getMediaStats();
 	}
 }
