@@ -23,7 +23,7 @@ export class ContactUsEntity extends Model {
 	@Column({ allowNull: false, type: DataType.STRING })
 	declare phone_number: string;
 
-	@Column({ allowNull: false, type: DataType.STRING })
+	@Column({ allowNull: true, type: DataType.STRING })
 	declare getting_touch: string;
 
 	@Column({ allowNull: false, type: DataType.TEXT })

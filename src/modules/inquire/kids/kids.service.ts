@@ -21,7 +21,7 @@ export class KidsInquireService {
         Name: ${dto.first_name}
         Email: ${dto.email}
 				Phone number: ${dto.phone_number}
-				Date: ${date.toLocaleDateString('en-US')}
+				Date: ${date.toISOString()}
 				Masterclass id: ${dto.masterclassId}
 				Show for kids: ${dto.showForKids}
         Number of people: ${dto.people_quantity}

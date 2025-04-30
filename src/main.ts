@@ -3,6 +3,7 @@ import { CoreModule } from './core/core.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(CoreModule);
@@ -13,6 +14,15 @@ async function bootstrap() {
 		credentials: true,
 		allowedHeaders: 'Content-Type, Authorization, X-Requested-With'
 	});
+
+	app.useGlobalPipes(
+		new ValidationPipe({
+			whitelist: true, // удаляет лишние поля, не описанные в DTO
+			forbidNonWhitelisted: true, // выбрасывает ошибку, если есть лишние поля
+			transform: true, // автоматически преобразует типы (например, строку в число)
+			disableErrorMessages: false // включает сообщения об ошибках
+		})
+	);
 
 	app.setGlobalPrefix('api/v1');
 

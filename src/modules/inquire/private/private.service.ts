@@ -27,8 +27,8 @@ export class PrivateInquireService {
         Email: ${dto.email}
 				Phone number: ${dto.phone_number}
 				Event type: ${dto.event_type}
-				Date: ${date.toLocaleDateString('en-US')}
-      	Time: ${startTime.toLocaleTimeString('en-US')} - ${endTime.toLocaleTimeString('en-US')}	
+				Date: ${date.toLocaleDateString()}
+      	Time: ${JSON.stringify(startTime)} - ${JSON.stringify(endTime)}	
         Number of people: ${dto.people_quantity}
         Additional info: ${dto.additional_info}
 				Status: ${dto.status}

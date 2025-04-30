@@ -44,10 +44,10 @@ export class PrivateInquireEntity extends Model {
 	@Column({ allowNull: false, type: DataType.INTEGER })
 	declare people_quantity: number;
 
-	@Column({ allowNull: false, type: DataType.TEXT })
+	@Column({ allowNull: true, type: DataType.TEXT })
 	declare additional_info: string;
 
-	@Column({ allowNull: false, type: DataType.TEXT })
+	@Column({ allowNull: false, type: DataType.TEXT, defaultValue: 'pending' })
 	declare status:
 		| 'in process'
 		| 'declined'

@@ -1,12 +1,14 @@
 import {
-	IsDateString,
 	IsEmail,
 	IsIn,
 	IsInt,
+	IsISO8601,
 	IsPhoneNumber,
-	IsString
+	IsString,
+	Matches
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 
 const STATUSES = [
 	'in process',
@@ -39,17 +41,29 @@ export class CreatePrivateInquireDto {
 	@IsString()
 	company_name: string;
 
-	@ApiProperty({ example: '2024-12-31', description: 'Event date' })
-	@IsDateString()
+	@ApiProperty({
+		example: '2024-12-31',
+		description: 'Event date in ISO format (YYYY-MM-DD)'
+	})
+	@IsISO8601()
+	@Type(() => Date)
 	date: Date;
 
-	@ApiProperty({ example: '18:00:00', description: 'Event start time' })
-	@IsDateString()
-	start_time: Date;
+	@ApiProperty({
+		example: '18:00:00',
+		description: 'Event start time in HH:mm:ss format'
+	})
+	@IsString()
+	@Matches(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/)
+	start_time: string;
 
-	@ApiProperty({ example: '22:00:00', description: 'Event end time' })
-	@IsDateString()
-	end_time: Date;
+	@ApiProperty({
+		example: '22:00:00',
+		description: 'Event end time in HH:mm:ss format'
+	})
+	@IsString()
+	@Matches(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/)
+	end_time: string;
 
 	@ApiProperty({ example: 'Corporate Meeting', description: 'Event type' })
 	@IsString()
