@@ -3,15 +3,36 @@ import { InjectModel } from '@nestjs/sequelize';
 import { PrivateInquireEntity } from '@/modules/inquire/private/entities/private.entity';
 import { CreatePrivateInquireDto } from '@/modules/inquire/private/dto/create-private.dto';
 import { UpdatePrivateInquireDto } from '@/modules/inquire/private/dto/update-private.dto';
+import { TelegramService } from '@/modules/telegram/telegram.service';
 
 @Injectable()
 export class PrivateInquireService {
 	constructor(
 		@InjectModel(PrivateInquireEntity)
-		private inquireRepository: typeof PrivateInquireEntity
+		private inquireRepository: typeof PrivateInquireEntity,
+		private readonly telegramService: TelegramService
 	) {}
 
 	async create(dto: CreatePrivateInquireDto): Promise<PrivateInquireEntity> {
+		await this.telegramService.sendFormattedNotification({
+			title: 'Private Inquire',
+			message: `
+        Name: ${dto.first_name}
+        Name: ${dto.last_name}
+				Company name: ${dto.company_name}
+        Email: ${dto.email}
+				Phone number: ${dto.phone_number}
+				Event type: ${dto.event_type}
+				Date: ${dto.date.toISOString()}
+				Start time: ${dto.start_time.toLocaleDateString()}
+				End time: ${dto.start_time.toLocaleDateString()}
+        Number of people: ${dto.people_quantity}
+        Additional info: ${dto.additional_info}
+				Status: ${dto.status}
+      `,
+			type: 'inquire'
+		});
+
 		return this.inquireRepository.create({ ...dto });
 	}
 

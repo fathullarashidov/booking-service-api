@@ -5,13 +5,15 @@ import { BookEntity } from '@/modules/book/entities/book.entity';
 import { EventService } from '@/modules/event/event.service';
 import { EventEntity } from '@/modules/event/entities/event.entity';
 import { UpdateBookDto } from '@/modules/book/dto/update-book.dto';
+import { TelegramService } from '@/modules/telegram/telegram.service';
 
 @Injectable()
 export class BookService {
 	constructor(
 		@InjectModel(BookEntity)
 		private bookModel: typeof BookEntity,
-		private eventService: EventService
+		private eventService: EventService,
+		private readonly telegramService: TelegramService
 	) {}
 
 	async create(createBookDto: CreateBookDto) {
@@ -22,6 +24,17 @@ export class BookService {
 				`Event with ID ${createBookDto.eventId} not found`
 			);
 		}
+
+		await this.telegramService.sendFormattedNotification({
+			title: 'Новая бронь!',
+			message: `
+				Event id: ${createBookDto.eventId}
+        Name: ${createBookDto.first_name}
+        Email: ${createBookDto.email}
+        Number of people: ${createBookDto.people_quantity}
+      `,
+			type: 'booking'
+		});
 
 		return await this.bookModel.create({ ...createBookDto });
 	}

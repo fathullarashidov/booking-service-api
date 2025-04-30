@@ -2,15 +2,28 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { FeedbackEntity } from './entities/feedback.entity';
 import { CreateFeedbackDto } from '@/modules/feedback/dto/create-feedback.dto';
+import { TelegramService } from '@/modules/telegram/telegram.service';
 
 @Injectable()
 export class FeedbackService {
 	constructor(
 		@InjectModel(FeedbackEntity)
-		private feedbackRepository: typeof FeedbackEntity
+		private feedbackRepository: typeof FeedbackEntity,
+		private readonly telegramService: TelegramService
 	) {}
 
 	async create(dto: CreateFeedbackDto): Promise<FeedbackEntity> {
+		await this.telegramService.sendFormattedNotification({
+			title: 'New feedback received!',
+			message: `
+        Name: ${dto.first_name}
+        Email: ${dto.email}
+        Additional info: ${dto.additional_info}
+        Rate: ${dto.rate}
+      `,
+			type: 'feedback'
+		});
+
 		return this.feedbackRepository.create({ ...dto });
 	}
 

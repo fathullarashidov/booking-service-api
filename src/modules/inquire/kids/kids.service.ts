@@ -3,15 +3,32 @@ import { KidInquireEntity } from '@/modules/inquire/kids/entities/kid.entity';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateKidsInquireDto } from './dto/create-kid.dto';
 import { UpdateKidsInquireDto } from './dto/update-kid.dto';
+import { TelegramService } from '@/modules/telegram/telegram.service';
 
 @Injectable()
 export class KidsInquireService {
 	constructor(
 		@InjectModel(KidInquireEntity)
-		private inquireRepository: typeof KidInquireEntity
+		private inquireRepository: typeof KidInquireEntity,
+		private readonly telegramService: TelegramService
 	) {}
 
 	async create(dto: CreateKidsInquireDto): Promise<KidInquireEntity> {
+		await this.telegramService.sendFormattedNotification({
+			title: 'Kids Inquire',
+			message: `
+        Name: ${dto.first_name}
+        Email: ${dto.email}
+				Phone number: ${dto.phone_number}
+				Date: ${dto.date.toLocaleDateString()}
+				Masterclass id: ${dto.masterclassId}
+				Show for kids: ${dto.showForKids}
+        Number of people: ${dto.people_quantity}
+				Status: ${dto.status}
+      `,
+			type: 'inquire'
+		});
+
 		return this.inquireRepository.create({ ...dto });
 	}
 

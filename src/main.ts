@@ -10,8 +10,8 @@ async function bootstrap() {
 	app.setGlobalPrefix('api/v1');
 
 	const config = new DocumentBuilder()
-		.setTitle('Restaurant API')
-		.setDescription('API for restaurant management system')
+		.setTitle('Restaurant API v1')
+		.setDescription('API for restaurant management system documentation v1')
 		.setVersion('1.0')
 		.addTag('Events')
 		.build();
