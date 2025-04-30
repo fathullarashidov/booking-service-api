@@ -14,13 +14,14 @@ export class KidsInquireService {
 	) {}
 
 	async create(dto: CreateKidsInquireDto): Promise<KidInquireEntity> {
+		const date = new Date(dto.date);
 		await this.telegramService.sendFormattedNotification({
 			title: 'Kids Inquire',
 			message: `
         Name: ${dto.first_name}
         Email: ${dto.email}
 				Phone number: ${dto.phone_number}
-				Date: ${dto.date.toLocaleDateString()}
+				Date: ${date.toLocaleDateString('en-US')}
 				Masterclass id: ${dto.masterclassId}
 				Show for kids: ${dto.showForKids}
         Number of people: ${dto.people_quantity}

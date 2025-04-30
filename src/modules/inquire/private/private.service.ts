@@ -14,6 +14,10 @@ export class PrivateInquireService {
 	) {}
 
 	async create(dto: CreatePrivateInquireDto): Promise<PrivateInquireEntity> {
+		const date = new Date(dto.date);
+		const startTime = new Date(dto.start_time);
+		const endTime = new Date(dto.end_time);
+
 		await this.telegramService.sendFormattedNotification({
 			title: 'Private Inquire',
 			message: `
@@ -23,9 +27,8 @@ export class PrivateInquireService {
         Email: ${dto.email}
 				Phone number: ${dto.phone_number}
 				Event type: ${dto.event_type}
-				Date: ${dto.date.toISOString()}
-				Start time: ${dto.start_time.toLocaleDateString()}
-				End time: ${dto.start_time.toLocaleDateString()}
+				Date: ${date.toLocaleDateString('en-US')}
+      	Time: ${startTime.toLocaleTimeString('en-US')} - ${endTime.toLocaleTimeString('en-US')}	
         Number of people: ${dto.people_quantity}
         Additional info: ${dto.additional_info}
 				Status: ${dto.status}
