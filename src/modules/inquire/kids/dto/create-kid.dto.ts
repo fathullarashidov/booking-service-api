@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsIn, IsInt, IsString } from 'class-validator';
+import { IsEmail, IsInt, IsString } from 'class-validator';
 
 const STATUSES = [
 	'in process',
@@ -31,13 +31,13 @@ export class CreateKidsInquireDto {
 	@ApiProperty({ example: 50, description: 'Number of attendees' })
 	@IsInt()
 	people_quantity: number;
-
-	@ApiProperty({
-		enum: STATUSES,
-		default: 'pending',
-		description: 'Request status'
-	})
-	@IsIn(STATUSES)
+	//
+	// @ApiProperty({
+	// 	enum: STATUSES,
+	// 	default: 'pending',
+	// 	description: 'Request status'
+	// })
+	// @IsIn(STATUSES)
 	status: string;
 
 	@ApiProperty({
@@ -52,5 +52,5 @@ export class CreateKidsInquireDto {
 		description: 'ID of available show for kids'
 	})
 	@IsString()
-	showForKids: string;
+	showForKidsId: string;
 }
