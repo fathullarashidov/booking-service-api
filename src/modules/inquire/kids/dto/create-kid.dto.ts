@@ -38,7 +38,7 @@ export class CreateKidsInquireDto {
 	// 	description: 'Request status'
 	// })
 	// @IsIn(STATUSES)
-	status: string;
+	// status: string;
 
 	@ApiProperty({
 		example: 'a58db8b9-04ab-4d78-9e78-18cae3a3a1e5',
