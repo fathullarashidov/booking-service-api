@@ -4,8 +4,8 @@ import {
 	Delete,
 	Get,
 	Param,
-	Patch,
-	Post
+	Post,
+	Put
 } from '@nestjs/common';
 import {
 	ApiBadRequestResponse,
@@ -57,7 +57,7 @@ export class PrivateInquireController {
 		return this.inquireService.findOne(id);
 	}
 
-	@Patch(':id')
+	@Put(':id')
 	@ApiOperation({ summary: 'Update inquiry details' })
 	@ApiOkResponse({
 		type: PrivateInquireEntity,

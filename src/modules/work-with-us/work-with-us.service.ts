@@ -1,26 +1,23 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import { CreateWorkWithUsDto } from './dto/create-work-with-us.dto';
-import { UpdateWorkWithUsDto } from './dto/update-work-with-us.dto';
+import { WorkWithUs } from '@/modules/work-with-us/entities/work-with-us.entity';
 
 @Injectable()
 export class WorkWithUsService {
-  create(createWorkWithUsDto: CreateWorkWithUsDto) {
-    return 'This action adds a new workWithUs';
-  }
+	constructor(
+		@InjectModel(WorkWithUs)
+		private workWithUsModel: typeof WorkWithUs
+	) {}
 
-  findAll() {
-    return `This action returns all workWithUs`;
-  }
+	async create(createWorkWithUsDto: CreateWorkWithUsDto, resumePath: string) {
+		return this.workWithUsModel.create({
+			...createWorkWithUsDto,
+			resume: resumePath
+		});
+	}
 
-  findOne(id: number) {
-    return `This action returns a #${id} workWithUs`;
-  }
-
-  update(id: number, updateWorkWithUsDto: UpdateWorkWithUsDto) {
-    return `This action updates a #${id} workWithUs`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} workWithUs`;
-  }
+	async findAll() {
+		return this.workWithUsModel.findAll();
+	}
 }

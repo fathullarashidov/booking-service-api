@@ -20,6 +20,7 @@ import { FeedbackEntity } from '@/modules/feedback/entities/feedback.entity';
 import { ContactUsModule } from '@/modules/contact-us/contact-us.module';
 import { ContactUsEntity } from '@/modules/contact-us/entities/contact-us.entity';
 import { TelegramModule } from '@/modules/telegram/telegram.module';
+import { WorkWithUsModule } from '@/modules/work-with-us/work-with-us.module';
 
 @Module({
 	imports: [
@@ -59,7 +60,8 @@ import { TelegramModule } from '@/modules/telegram/telegram.module';
 		MasterclassModule,
 		FeedbackModule,
 		ContactUsModule,
-		TelegramModule
+		TelegramModule,
+		WorkWithUsModule
 	]
 })
 export class CoreModule {}
