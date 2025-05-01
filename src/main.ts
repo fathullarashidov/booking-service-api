@@ -4,12 +4,16 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
+import * as process from 'node:process';
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(CoreModule);
 
 	app.enableCors({
-		origin: true, // или true для разрешения всех доменов 'http://localhost:5173'
+		origin:
+			process.env.MODE === 'development'
+				? true
+				: ['https://gosht.maksimovich.uz', 'https://www.gosht.maksimovich.uz'],
 		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 		credentials: true,
 		allowedHeaders: 'Content-Type, Authorization, X-Requested-With'

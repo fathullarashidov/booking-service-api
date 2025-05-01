@@ -13,6 +13,6 @@ export class MasterclassEntity extends Model {
 	@Column({ allowNull: false, type: DataType.STRING })
 	declare title: string;
 
-	@Column({ allowNull: false, type: DataType.STRING })
+	@Column({ allowNull: false, type: DataType.TEXT })
 	declare description: string;
 }
