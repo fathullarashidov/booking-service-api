@@ -38,7 +38,7 @@ export class KidInquireEntity extends Model {
 	@Column({ allowNull: false, type: DataType.INTEGER })
 	declare people_quantity: number;
 
-	@Column({ allowNull: false, type: DataType.TEXT })
+	@Column({ allowNull: true, type: DataType.TEXT, defaultValue: 'pending' })
 	declare status:
 		| 'in process'
 		| 'declined'
