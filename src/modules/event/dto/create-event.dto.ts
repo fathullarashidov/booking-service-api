@@ -1,10 +1,4 @@
-import {
-	IsArray,
-	IsDateString,
-	IsNumber,
-	IsString,
-	IsUUID
-} from 'class-validator';
+import { IsArray, IsNumber, IsString, IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateEventDto {
@@ -17,12 +11,12 @@ export class CreateEventDto {
 	cost: number;
 
 	@ApiProperty({ example: '2024-12-31', description: 'Дата проведения' })
-	@IsDateString()
-	date: Date;
+	@IsString()
+	date: string;
 
 	@ApiProperty({ example: '19:00:00', description: 'Время начала' })
-	@IsDateString()
-	time: Date;
+	@IsString()
+	time: string;
 
 	@ApiProperty({
 		example: 'Роскошная свадьба',

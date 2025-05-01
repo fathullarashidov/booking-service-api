@@ -29,14 +29,14 @@ export class PrivateInquireEntity extends Model {
 	@Column({ allowNull: false, type: DataType.STRING })
 	declare company_name: string;
 
-	@Column({ allowNull: false, type: DataType.DATEONLY })
-	declare date: Date;
+	@Column({ allowNull: false, type: DataType.STRING })
+	declare date: string;
 
-	@Column({ allowNull: false, type: DataType.TIME })
-	declare start_time: Date;
+	@Column({ allowNull: false, type: DataType.STRING })
+	declare start_time: string;
 
-	@Column({ allowNull: false, type: DataType.TIME })
-	declare end_time: Date;
+	@Column({ allowNull: false, type: DataType.STRING })
+	declare end_time: string;
 
 	@Column({ allowNull: false, type: DataType.STRING })
 	declare event_type: string;

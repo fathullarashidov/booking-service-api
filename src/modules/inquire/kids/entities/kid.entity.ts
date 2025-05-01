@@ -32,8 +32,8 @@ export class KidInquireEntity extends Model {
 	@Column({ allowNull: false, type: DataType.STRING })
 	declare phone_number: string;
 
-	@Column({ allowNull: false, type: DataType.DATEONLY })
-	declare date: Date;
+	@Column({ allowNull: false, type: DataType.STRING })
+	declare date: string;
 
 	@Column({ allowNull: false, type: DataType.INTEGER })
 	declare people_quantity: number;

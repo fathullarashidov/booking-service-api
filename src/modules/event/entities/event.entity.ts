@@ -41,11 +41,11 @@ export class EventEntity extends Model {
 	})
 	declare cost: number;
 
-	@Column({ allowNull: false, type: DataType.DATEONLY })
-	declare date: Date;
+	@Column({ allowNull: false, type: DataType.STRING })
+	declare date: string;
 
-	@Column({ allowNull: false, type: DataType.TIME })
-	declare time: Date;
+	@Column({ allowNull: false, type: DataType.STRING })
+	declare time: string;
 
 	@Column({ allowNull: false, type: DataType.TEXT })
 	declare main_title: string;
