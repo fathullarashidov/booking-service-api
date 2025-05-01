@@ -10,10 +10,11 @@ async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(CoreModule);
 
 	app.enableCors({
-		origin:
-			process.env.MODE === 'development'
-				? true
-				: ['https://gosht.maksimovich.uz', 'https://www.gosht.maksimovich.uz'],
+		origin: [
+			'https://gosht.maksimovich.uz',
+			'https://www.gosht.maksimovich.uz',
+			process.env.MODE === 'development' ? 'http://localhost:5173' : ''
+		],
 		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 		credentials: true,
 		allowedHeaders: 'Content-Type, Authorization, X-Requested-With'
@@ -44,6 +45,6 @@ async function bootstrap() {
 		prefix: '/media'
 	});
 
-	await app.listen(process.env.PORT ?? 3000);
+	await app.listen(process.env.PORT ?? 3000, '127.0.0.1');
 }
 bootstrap();
