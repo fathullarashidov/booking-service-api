@@ -10,15 +10,17 @@ async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(CoreModule);
 
 	app.enableCors({
-		origin: [
-			'https://gosht.maksimovich.uz',
-			'https://www.gosht.maksimovich.uz',
-			'http://localhost:5173'
-		],
+		origin: true,
 		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 		credentials: true,
 		allowedHeaders: 'Content-Type, Authorization, X-Requested-With'
 	});
+	//
+	// let corsLinks = [
+	// 		'https://gosht.maksimovich.uz',
+	// 		'https://www.gosht.maksimovich.uz',
+	// 		'http://localhost:5173'
+	// 	],
 
 	app.useGlobalPipes(
 		new ValidationPipe({
