@@ -17,6 +17,7 @@ export class FeedbackService {
 			title: 'New feedback received!',
 			message: `
         Name: ${dto.first_name}
+        Last name: ${dto.last_name}
         Email: ${dto.email}
         Additional info: ${dto.additional_info}
         Rate: ${dto.rate}
