@@ -13,7 +13,7 @@ async function bootstrap() {
 		origin: [
 			'https://gosht.maksimovich.uz',
 			'https://www.gosht.maksimovich.uz',
-			process.env.MODE === 'development' ? 'http://localhost:5173' : ''
+			'http://localhost:5173'
 		],
 		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 		credentials: true,
