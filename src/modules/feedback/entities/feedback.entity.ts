@@ -18,6 +18,12 @@ export class FeedbackEntity extends Model {
 
 	@Column({
 		type: DataType.STRING,
+		allowNull: false
+	})
+	declare last_name: string;
+
+	@Column({
+		type: DataType.STRING,
 		allowNull: false,
 		validate: { isEmail: true }
 	})

@@ -21,6 +21,17 @@ export class CreateFeedbackDto {
 	first_name: string;
 
 	@ApiProperty({
+		example: 'Иванов',
+		description: 'Фамилие клиента',
+		required: true,
+		maxLength: 50,
+		minLength: 2,
+		type: String
+	})
+	@IsString({ message: 'Имя должно быть строкой' })
+	last_name: string;
+
+	@ApiProperty({
 		example: 'ivan@example.com',
 		description: 'Действующий email клиента',
 		format: 'email',
