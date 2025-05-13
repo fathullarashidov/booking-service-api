@@ -10,6 +10,8 @@ import { ensureDir, pathExists, remove, writeFile } from 'fs-extra';
 import { CreateMediaDto } from '@/modules/media/dto/create-media.dto';
 import { UpdateMediaDto } from '@/modules/media/dto/update-media.dto';
 import { MediaEntity } from './entities/media.entity';
+import * as process from 'node:process';
+import { MEDIA_LOCATION, MODE } from '@/core/envConfig';
 
 @Injectable()
 export class MediaService {
@@ -25,7 +27,10 @@ export class MediaService {
 		dto: CreateMediaDto
 	): Promise<MediaEntity> {
 		try {
-			const uploadDir = join(process.cwd(), 'media');
+			const uploadDir = join(
+				process.cwd(),
+				MODE === 'production' ? MEDIA_LOCATION : 'media'
+			);
 			await ensureDir(uploadDir);
 
 			const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1e9);

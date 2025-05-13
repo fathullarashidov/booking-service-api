@@ -15,7 +15,7 @@ async function bootstrap() {
 		credentials: true,
 		allowedHeaders: 'Content-Type, Authorization, X-Requested-With'
 	});
-	//
+
 	// let corsLinks = [
 	// 		'https://gosht.maksimovich.uz',
 	// 		'https://www.gosht.maksimovich.uz',
