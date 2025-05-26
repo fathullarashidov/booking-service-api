@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { CoreModule } from './core/core.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import * as process from 'node:process';
@@ -43,9 +42,9 @@ async function bootstrap() {
 	const document = SwaggerModule.createDocument(app, config);
 	SwaggerModule.setup('api/v1/docs', app, document);
 
-	app.useStaticAssets(join(process.cwd(), 'media'), {
-		prefix: '/media'
-	});
+	// app.useStaticAssets(join(process.cwd(), 'media'), {
+	// 	prefix: '/'
+	// });
 
 	await app.listen(process.env.PORT ?? 3000, '127.0.0.1');
 }
