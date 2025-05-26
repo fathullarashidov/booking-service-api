@@ -11,7 +11,6 @@ import { CreateWorkWithUsDto } from './dto/create-work-with-us.dto';
 import { UpdateWorkWithUsDto } from './dto/update-work-with-us.dto';
 import { WorkWithUs } from './entities/work-with-us.entity';
 import * as process from 'process';
-import { MEDIA_LOCATION, MODE } from '@/core/envConfig';
 
 @Injectable()
 export class WorkWithUsService {
@@ -29,7 +28,9 @@ export class WorkWithUsService {
 		try {
 			const uploadDir = join(
 				process.cwd(),
-				MODE === 'production' ? `${MEDIA_LOCATION}/resumes` : 'media/resumes'
+				process.env.MODE === 'production'
+					? `${process.env.MEDIA_LOCATION!}/resumes`
+					: 'media/resumes'
 			);
 			await ensureDir(uploadDir);
 
@@ -83,7 +84,9 @@ export class WorkWithUsService {
 	async delete(id: string): Promise<void> {
 		const application = await this.findById(id);
 		const basePath =
-			MODE === 'production' ? `${MEDIA_LOCATION}/resumes` : 'media/resumes';
+			process.env.MODE === 'production'
+				? `${process.env.MEDIA_LOCATION!}/resumes`
+				: 'media/resumes';
 		const filePath = join(process.cwd(), basePath, application.fileName);
 
 		try {

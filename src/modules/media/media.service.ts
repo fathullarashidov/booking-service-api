@@ -11,7 +11,6 @@ import { CreateMediaDto } from '@/modules/media/dto/create-media.dto';
 import { UpdateMediaDto } from '@/modules/media/dto/update-media.dto';
 import { MediaEntity } from './entities/media.entity';
 import * as process from 'node:process';
-import { MEDIA_LOCATION, MODE } from '@/core/envConfig';
 
 @Injectable()
 export class MediaService {
@@ -29,7 +28,9 @@ export class MediaService {
 		try {
 			const uploadDir = join(
 				process.cwd(),
-				MODE === 'production' ? MEDIA_LOCATION : 'media'
+				process.env.MODE === 'production'
+					? process.env.MEDIA_LOCATION!
+					: 'media'
 			);
 			await ensureDir(uploadDir);
 
@@ -148,6 +149,7 @@ export class MediaService {
 			total: allMedia.length,
 			byType: allMedia.reduce((acc, media) => {
 				const type = media.mimeType.split('/')[0];
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 				acc[type] = (acc[type] || 0) + 1;
 				return acc;
 			}, {}),
