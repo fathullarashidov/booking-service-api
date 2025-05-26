@@ -29,8 +29,7 @@ export class WorkWithUsService {
 		try {
 			const uploadDir = join(
 				process.cwd(),
-				MODE === 'production' ? MEDIA_LOCATION : 'media',
-				'/resumes'
+				MODE === 'production' ? `${MEDIA_LOCATION}/resumes` : 'media/resumes'
 			);
 			await ensureDir(uploadDir);
 
@@ -83,13 +82,9 @@ export class WorkWithUsService {
 
 	async delete(id: string): Promise<void> {
 		const application = await this.findById(id);
-		const basePath = MODE === 'production' ? MEDIA_LOCATION : 'media';
-		const filePath = join(
-			process.cwd(),
-			basePath,
-			'/resumes',
-			application.fileName
-		);
+		const basePath =
+			MODE === 'production' ? `${MEDIA_LOCATION}/resumes` : 'media/resumes';
+		const filePath = join(process.cwd(), basePath, application.fileName);
 
 		try {
 			if (await pathExists(filePath)) {
