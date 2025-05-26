@@ -3,8 +3,8 @@ import { Column, DataType, Model, Table } from 'sequelize-typescript';
 @Table({ tableName: 'work_with_us' })
 export class WorkWithUs extends Model {
 	@Column({
-		primaryKey: true,
 		type: DataType.UUID,
+		primaryKey: true,
 		defaultValue: DataType.UUIDV4
 	})
 	declare id: string;
@@ -18,9 +18,21 @@ export class WorkWithUs extends Model {
 	@Column({ allowNull: false })
 	declare email: string;
 
-	@Column({ type: 'TEXT', allowNull: false })
+	@Column({ type: DataType.TEXT, allowNull: false })
 	declare cover_letter: string;
 
 	@Column({ allowNull: false })
-	declare resume: string;
+	declare originalName: string;
+
+	@Column({ allowNull: false })
+	declare fileName: string;
+
+	@Column({ allowNull: false })
+	declare path: string;
+
+	@Column({ type: DataType.INTEGER, allowNull: false })
+	declare size: number;
+
+	@Column({ allowNull: false })
+	declare mimeType: string;
 }

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateWorkWithUsDto {
 	@ApiProperty({ example: 'Иван', description: 'Имя кандидата' })
@@ -8,7 +8,7 @@ export class CreateWorkWithUsDto {
 	first_name: string;
 
 	@ApiProperty({ example: '+79001234567', description: 'Номер телефона' })
-	@IsPhoneNumber('RU')
+	@IsString()
 	@IsNotEmpty()
 	phone_number: string;
 
@@ -24,11 +24,4 @@ export class CreateWorkWithUsDto {
 	@IsString()
 	@IsNotEmpty()
 	cover_letter: string;
-
-	@ApiProperty({
-		type: 'string',
-		format: 'binary',
-		description: 'Резюме (PDF, DOCX)'
-	})
-	resume: any; // Важно: тип 'any' для корректного отображения в Swagger
 }

@@ -29,15 +29,6 @@ export class FeedbackService {
 	}
 
 	async findAll(): Promise<FeedbackEntity[]> {
-		return this.feedbackRepository.findAll({
-			order: [['created_at', 'DESC']]
-		});
-	}
-
-	async findByEmail(email: string): Promise<FeedbackEntity[]> {
-		return this.feedbackRepository.findAll({
-			where: { email },
-			order: [['created_at', 'DESC']]
-		});
+		return this.feedbackRepository.findAll();
 	}
 }
