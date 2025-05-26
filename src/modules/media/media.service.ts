@@ -26,11 +26,11 @@ export class MediaService {
 		dto: CreateMediaDto
 	): Promise<MediaEntity> {
 		try {
+			const mediaLocation = process.env.MEDIA_LOCATION || 'media';
 			const uploadDir = join(
-				process.cwd(),
 				process.env.MODE === 'production'
-					? process.env.MEDIA_LOCATION!
-					: 'media'
+					? mediaLocation
+					: join(process.cwd(), 'media')
 			);
 			await ensureDir(uploadDir);
 
