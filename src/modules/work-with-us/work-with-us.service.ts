@@ -26,12 +26,11 @@ export class WorkWithUsService {
 		dto: CreateWorkWithUsDto
 	): Promise<WorkWithUs> {
 		try {
-			const mediaLocation = process.env.MEDIA_LOCATION || 'media';
+			const mediaLocation = process.env.RESUME_LOCATION || 'resumes';
 			const uploadDir = join(
-				process.cwd(),
 				process.env.MODE === 'production'
-					? `${mediaLocation}/resumes`
-					: 'media/resumes'
+					? mediaLocation
+					: join(process.cwd(), 'resumes')
 			);
 			await ensureDir(uploadDir);
 
@@ -84,11 +83,10 @@ export class WorkWithUsService {
 
 	async delete(id: string): Promise<void> {
 		const application = await this.findById(id);
-		const mediaLocation = process.env.MEDIA_LOCATION || 'media';
+		const mediaLocation = process.env.RESUME_LOCATION || 'resumes';
 		const basePath =
-			process.env.MODE === 'production'
-				? `${mediaLocation}/resumes`
-				: 'media/resumes';
+			process.env.MODE === 'production' ? mediaLocation : 'resumes';
+
 		const filePath = join(process.cwd(), basePath, application.fileName);
 
 		try {
