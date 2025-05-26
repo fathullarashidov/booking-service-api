@@ -44,7 +44,7 @@ export class WorkWithUsService {
 			return this.workWithUsModel.create({
 				originalName: resume.originalname,
 				fileName,
-				path: `/media/resumes/${fileName}`,
+				path: `/resumes/${fileName}`,
 				size: resume.size,
 				mimeType: resume.mimetype,
 				...dto
