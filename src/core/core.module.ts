@@ -21,7 +21,8 @@ import { ContactUsModule } from '@/modules/contact-us/contact-us.module';
 import { ContactUsEntity } from '@/modules/contact-us/entities/contact-us.entity';
 import { TelegramModule } from '@/modules/telegram/telegram.module';
 import { WorkWithUsModule } from '@/modules/work-with-us/work-with-us.module';
-import { AuthModule } from '@/modules/auth/auth.module';
+import { AdminsModule } from '@/modules/admins/admins.module';
+import { AdminEntity } from '@/modules/admins/entities/admin.entity';
 
 @Module({
 	imports: [
@@ -45,7 +46,8 @@ import { AuthModule } from '@/modules/auth/auth.module';
 				ShowForKidsEntity,
 				MasterclassEntity,
 				FeedbackEntity,
-				ContactUsEntity
+				ContactUsEntity,
+				AdminEntity
 			],
 			autoLoadModels: true,
 			synchronize: process.env.MODE === 'development',
@@ -63,7 +65,7 @@ import { AuthModule } from '@/modules/auth/auth.module';
 		ContactUsModule,
 		TelegramModule,
 		WorkWithUsModule,
-		AuthModule
+		AdminsModule
 	]
 })
 export class CoreModule {}
