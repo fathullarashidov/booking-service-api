@@ -1,4 +1,10 @@
-import { IsArray, IsNumber, IsString, IsUUID } from 'class-validator';
+import {
+	IsArray,
+	IsBoolean,
+	IsNumber,
+	IsString,
+	IsUUID
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateEventDto {
@@ -61,4 +67,11 @@ export class CreateEventDto {
 	})
 	@IsUUID()
 	mediaId: string;
+
+	@ApiProperty({
+		example: true,
+		description: 'Флаг видимости мероприятия (true/false)'
+	})
+	@IsBoolean()
+	is_visible: boolean;
 }
