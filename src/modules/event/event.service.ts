@@ -26,6 +26,13 @@ export class EventService {
 		});
 	}
 
+	async findVisible(): Promise<EventEntity[]> {
+		return this.eventModel.findAll({
+			where: { is_visible: true },
+			include: [MediaEntity]
+		});
+	}
+
 	async findOne(id: string): Promise<EventEntity> {
 		const event = await this.eventModel.findByPk(id, {
 			include: [MediaEntity]

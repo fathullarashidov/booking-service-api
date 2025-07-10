@@ -68,4 +68,7 @@ export class EventEntity extends Model {
 
 	@Column({ allowNull: false, type: DataType.TEXT })
 	declare motivation: string;
+
+	@Column({ allowNull: true, type: DataType.BOOLEAN, defaultValue: true })
+	declare is_visible: boolean;
 }

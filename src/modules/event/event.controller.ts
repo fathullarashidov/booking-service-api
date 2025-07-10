@@ -38,7 +38,7 @@ export class EventController {
 		return this.eventService.create(createEventDto);
 	}
 
-	@Get()
+	@Get('all')
 	@ApiOperation({
 		summary: 'Get all events',
 		description: 'Returns list of all available events'
@@ -49,6 +49,19 @@ export class EventController {
 	})
 	findAll(): Promise<EventEntity[]> {
 		return this.eventService.findAll();
+	}
+
+	@Get()
+	@ApiOperation({
+		summary: 'Get all visible events',
+		description: 'Returns list of all visible available events'
+	})
+	@ApiOkResponse({
+		type: [EventEntity],
+		description: 'Events list retrieved successfully'
+	})
+	findVisible(): Promise<EventEntity[]> {
+		return this.eventService.findVisible();
 	}
 
 	@Get(':id')
